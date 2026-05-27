@@ -1,0 +1,10 @@
+.git
+.gitignore
+.github
+.dockerignore
+Dockerfile
+docker-compose.yml
+docker-compose.yaml
+node_modules
+*.log
+wp-config.php

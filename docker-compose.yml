@@ -1,0 +1,25 @@
+services:
+  wordpress:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${DB_NAME}
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
+    volumes:
+      # Bind-mount this fork's source so edits on the host are reflected
+      # immediately. wp-config.php is generated here on first boot.
+      - ./:/var/www/html
+      # nginx + php config — mounted into the standard Alpine paths.
+      - ./config/nginx.conf:/etc/nginx/http.d/default.conf:ro
+      - ./config/php.ini:/usr/local/etc/php/conf.d/wordpress.ini:ro
+      # Keep uploads off the host bind mount so they survive `git clean`.
+      - wp_uploads:/var/www/html/wp-content/uploads
+
+volumes:
+  db_data:
+  wp_uploads:
