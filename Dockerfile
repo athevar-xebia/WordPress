@@ -46,7 +46,7 @@ COPY <<'ENTRYPOINT' /usr/local/bin/wp-entrypoint.sh
 #!/bin/sh
 set -e
 
-if [ ! -f /var/www/html/wp-config.php ] && [ -f /var/www/html/wp-config-sample.php ]; then
+if [ ! -f /var/www/html/wp/wp-config.php ] && [ -f /var/www/html/wp/wp-config-sample.php ]; then
     case "${WORDPRESS_DEBUG:-}" in
         1|true|yes|on) wp_debug=true ;;
         *) wp_debug=false ;;
@@ -57,8 +57,8 @@ if [ ! -f /var/www/html/wp-config.php ] && [ -f /var/www/html/wp-config-sample.p
         -e "s/password_here/${WORDPRESS_DB_PASSWORD:-wordpress}/" \
         -e "s/localhost/${WORDPRESS_DB_HOST:-db}/" \
         -e "s/define( 'WP_DEBUG', false );/define( 'WP_DEBUG', ${wp_debug} );/" \
-        /var/www/html/wp-config-sample.php > /var/www/html/wp-config.php
-    chown www-data:www-data /var/www/html/wp-config.php
+        /var/www/html/wp/wp-config-sample.php > /var/www/html/wp/wp-config.php
+    chown www-data:www-data /var/www/html/wp/wp-config.php
 fi
 
 php-fpm -D
@@ -66,8 +66,8 @@ exec nginx -g 'daemon off;'
 ENTRYPOINT
 RUN chmod +x /usr/local/bin/wp-entrypoint.sh
 
-WORKDIR /var/www/html
-COPY --chown=www-data:www-data . /var/www/html/
+WORKDIR /var/www/html/wp
+COPY --chown=www-data:www-data . /var/www/html/wp/
 
 EXPOSE 80
 ENTRYPOINT ["wp-entrypoint.sh"]
