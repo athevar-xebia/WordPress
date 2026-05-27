@@ -27,22 +27,20 @@
           "value": "<+env.variables.WORDPRESS_DB_NAME>"
         },
         {
+          "name": "WORDPRESS_DB_USER",
+          "value": "<+secrets.getValue(\"wordpress_db_user\")>"
+        },
+        {
+          "name": "WORDPRESS_DB_PASSWORD",
+          "value": "<+secrets.getValue(\"wordpress_db_password\")>"
+        },
+        {
           "name": "WORDPRESS_DEBUG",
           "value": "<+env.variables.WORDPRESS_DEBUG>"
         },
         {
           "name": "ENV_NAME",
           "value": "<+env.name>"
-        }
-      ],
-      "secrets": [
-        {
-          "name": "WORDPRESS_DB_USER",
-          "valueFrom": "<+env.variables.WORDPRESS_DB_USER_ARN>"
-        },
-        {
-          "name": "WORDPRESS_DB_PASSWORD",
-          "valueFrom": "<+env.variables.WORDPRESS_DB_PASSWORD_ARN>"
         }
       ],
       "healthCheck": {
