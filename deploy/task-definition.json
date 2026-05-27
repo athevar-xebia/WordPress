@@ -46,7 +46,7 @@
       "healthCheck": {
         "command": [
           "CMD-SHELL",
-          "wget --quiet --spider http://localhost/wp-login.php || exit 1"
+          "wget --quiet --spider http://localhost/readme.html || exit 1"
         ],
         "interval": 30,
         "timeout": 5,

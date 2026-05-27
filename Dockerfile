@@ -36,6 +36,9 @@ RUN set -eux; \
     ln -sf /dev/stdout /var/log/nginx/access.log; \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
+COPY config/nginx.conf /etc/nginx/http.d/default.conf
+COPY config/php.ini    /usr/local/etc/php/conf.d/wordpress.ini
+
 # Entrypoint: render wp-config.php on first boot, start php-fpm in the
 # background, then exec nginx as PID 1. If nginx exits, the container
 # exits — same lifecycle semantics as a single-process container.
