@@ -58,7 +58,8 @@
         "options": {
           "awslogs-group": "/ecs/wordpress-<+env.name>",
           "awslogs-region": "<+variable.AWS_REGION>",
-          "awslogs-stream-prefix": "ecs"
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
         }
       },
       "cpu": 1024,
