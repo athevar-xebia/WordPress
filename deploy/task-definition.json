@@ -28,11 +28,11 @@
         },
         {
           "name": "WORDPRESS_DB_USER",
-          "value": "<+secrets.getValue(\"wordpress_db_user\")>"
+          "value": "<+secrets.getValue('wordpress_db_user')>"
         },
         {
           "name": "WORDPRESS_DB_PASSWORD",
-          "value": "<+secrets.getValue(\"wordpress_db_password\")>"
+          "value": "<+secrets.getValue('wordpress_db_password')>"
         },
         {
           "name": "WORDPRESS_DEBUG",
