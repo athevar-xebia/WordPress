@@ -1,18 +1,18 @@
 {
   "serviceName": "wordpress-<+env.name>",
-  "cluster": "<+infra.variables.ECS_CLUSTER_NAME>",
+  "cluster": "<+variable.ECS_CLUSTER_NAME>",
   "launchType": "FARGATE",
   "desiredCount": 2,
   "networkConfiguration": {
     "awsvpcConfiguration": {
-      "subnets": [<+infra.variables.PRIVATE_SUBNETS>],
-      "securityGroups": [<+infra.variables.SECURITY_GROUPS>],
+      "subnets": ["subnet-0df6d18190c6dc1b9","subnet-000472f593a2b011b"],
+      "securityGroups": ["sg-0f8f276cbbbc4243d"],
       "assignPublicIp": "DISABLED"
     }
   },
   "loadBalancers": [
     {
-      "targetGroupArn": "<+infra.variables.TARGET_GROUP_ARN>",
+      "targetGroupArn": "<+variable.TARGET_GROUP_ARN>",
       "containerName": "wordpress",
       "containerPort": 80
     }
