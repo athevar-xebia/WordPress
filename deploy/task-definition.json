@@ -20,11 +20,11 @@
       "environment": [
         {
           "name": "WORDPRESS_DB_HOST",
-          "value": "<+env.variables.WORDPRESS_DB_HOST>"
+          "value": "<+variable.WORDPRESS_DB_HOST>"
         },
         {
           "name": "WORDPRESS_DB_NAME",
-          "value": "<+env.variables.WORDPRESS_DB_NAME>"
+          "value": "<+variable.WORDPRESS_DB_NAME>"
         },
         {
           "name": "WORDPRESS_DB_USER",
@@ -36,7 +36,7 @@
         },
         {
           "name": "WORDPRESS_DEBUG",
-          "value": "<+env.variables.WORDPRESS_DEBUG>"
+          "value": "<+variable.WORDPRESS_DEBUG>"
         },
         {
           "name": "ENV_NAME",
