@@ -1,0 +1,70 @@
+{
+  "family": "<+service.name>",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "executionRoleArn": "<+env.variables.EXECUTION_ROLE_ARN>",
+  "taskRoleArn": "<+project.variables.TASK_ROLE_ARN>",
+  "containerDefinitions": [
+    {
+      "name": "wordpress",
+      "image": "<+artifacts.primary.image>",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "WORDPRESS_DB_HOST",
+          "value": "<+env.variables.WORDPRESS_DB_HOST>"
+        },
+        {
+          "name": "WORDPRESS_DB_NAME",
+          "value": "<+env.variables.WORDPRESS_DB_NAME>"
+        },
+        {
+          "name": "WORDPRESS_DEBUG",
+          "value": "<+env.variables.WORDPRESS_DEBUG>"
+        },
+        {
+          "name": "ENV_NAME",
+          "value": "<+env.name>"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "WORDPRESS_DB_USER",
+          "valueFrom": "<+env.variables.WORDPRESS_DB_USER_ARN>"
+        },
+        {
+          "name": "WORDPRESS_DB_PASSWORD",
+          "valueFrom": "<+env.variables.WORDPRESS_DB_PASSWORD_ARN>"
+        }
+      ],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "wget --quiet --spider http://localhost/wp-login.php || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/wordpress-<+env.name>",
+          "awslogs-region": "<+pipeline.variables.AWS_REGION>",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "cpu": 1024,
+      "memory": 2048
+    }
+  ]
+}

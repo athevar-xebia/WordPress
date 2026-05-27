@@ -1,0 +1,49 @@
+{
+  "serviceName": "wordpress-<+env.name>",
+  "cluster": "<+project.variables.ECS_CLUSTER_NAME>",
+  "launchType": "FARGATE",
+  "desiredCount": 2,
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": [
+        "<+project.variables.PRIVATE_SUBNETS>"
+      ],
+      "securityGroups": [
+        "<+project.variables.SECURITY_GROUPS>"
+      ],
+      "assignPublicIp": "DISABLED"
+    }
+  },
+  "loadBalancers": [
+    {
+      "targetGroupArn": "<+project.variables.TARGET_GROUP_ARN>",
+      "containerName": "wordpress",
+      "containerPort": 80
+    }
+  ],
+  "healthCheckGracePeriodSeconds": 300,
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 50,
+    "deploymentCircuitBreaker": {
+      "enable": true,
+      "rollback": true
+    }
+  },
+  "enableExecuteCommand": false,
+  "propagateTags": "SERVICE",
+  "tags": [
+    {
+      "key": "Environment",
+      "value": "<+env.name>"
+    },
+    {
+      "key": "Service",
+      "value": "wordpress"
+    },
+    {
+      "key": "ManagedBy",
+      "value": "Harness"
+    }
+  ]
+}
