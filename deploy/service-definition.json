@@ -1,6 +1,6 @@
 {
   "serviceName": "wordpress-<+env.name>",
-  "cluster": "<+variable.ECS_CLUSTER_NAME>",
+  "cluster": "<+serviceVariables.ECS_CLUSTER_NAME>",
   "launchType": "FARGATE",
   "desiredCount": 2,
   "networkConfiguration": {
@@ -12,7 +12,7 @@
   },
   "loadBalancers": [
     {
-      "targetGroupArn": "<+variable.TARGET_GROUP_ARN>",
+      "targetGroupArn": "<+serviceVariables.TARGET_GROUP_ARN>",
       "containerName": "wordpress",
       "containerPort": 80
     }

@@ -4,8 +4,8 @@
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
   "memory": "2048",
-  "executionRoleArn": "<+variable.EXECUTION_ROLE_ARN>",
-  "taskRoleArn": "<+variable.TASK_ROLE_ARN>",
+  "executionRoleArn": "<+serviceVariables.EXECUTION_ROLE_ARN>",
+  "taskRoleArn": "<+serviceVariables.TASK_ROLE_ARN>",
   "containerDefinitions": [
     {
       "name": "wordpress",
@@ -57,7 +57,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/wordpress-<+env.name>",
-          "awslogs-region": "<+variable.AWS_REGION>",
+          "awslogs-region": "<+serviceVariables.AWS_REGION>",
           "awslogs-stream-prefix": "ecs",
           "awslogs-create-group": "true"
         }
