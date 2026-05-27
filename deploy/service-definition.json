@@ -5,8 +5,8 @@
   "desiredCount": 2,
   "networkConfiguration": {
     "awsvpcConfiguration": {
-      "subnets": <+json.list(<+infra.variables.PRIVATE_SUBNETS>)>,
-      "securityGroups": <+json.list(<+infra.variables.SECURITY_GROUPS>)>,
+      "subnets": <+infra.variables.PRIVATE_SUBNETS>,
+      "securityGroups": <+infra.variables.SECURITY_GROUPS>,
       "assignPublicIp": "DISABLED"
     }
   },
